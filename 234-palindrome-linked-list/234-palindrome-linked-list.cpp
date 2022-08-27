@@ -8,56 +8,48 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
+        ListNode* reversell(ListNode* head)
+    {
+        ListNode* badhar=NULL;
+        ListNode* next=NULL;
+        while(head!=NULL)
+        {
+            next=head->next;
+            head->next=badhar;
+            badhar=head;
+            head=next;
+        }
+        return badhar;
+    }
     bool isPalindrome(ListNode* head) {
-        if(head==NULL)
+        if(head==NULL||head->next==NULL)
         {
             return true;
         }
-        ListNode* fast=head;
-        ListNode* temp=head;
-        ListNode* slow=head;
-        int count=0;
-        while(temp!=NULL)
-        {
-            temp=temp->next;
-            ++count;
-        }
-        while(fast!=NULL&&fast->next!=NULL)
-        {
-            slow=slow->next;
-            fast=fast->next->next;
-        }
-         ListNode* head2=NULL;
-        if(count%2!=0)
-        {
-            head2=slow->next;
-        }
         else
         {
-            head2=slow;
-        }
-        ListNode* dummy=NULL;
-        ListNode* next=NULL;
-        while(head2!=NULL)
-        {
-            next=head2->next;
-            head2->next=dummy;
-            dummy=head2;
-            head2=next;
-        }
-        temp=head;
-        while(dummy!=NULL)
-        {
-            if(dummy->val!=temp->val)
+            ListNode* fast=head;
+            ListNode* slow=head;
+            while(fast->next!=NULL&&fast->next->next!=NULL)
             {
-                return false;
+                slow=slow->next;
+                fast=fast->next->next;
             }
-            dummy=dummy->next;
-            temp=temp->next;
+            slow->next=reversell(slow->next);
+            slow=slow->next;
+            while(slow!=NULL)
+            {
+                if(slow->val!=head->val)
+                {
+                    return false;
+                }
+                slow=slow->next;
+                head=head->next;
+            }
+            return true;
         }
-        return true;
-        
     }
 };
