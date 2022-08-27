@@ -24,21 +24,6 @@ public:
             temp=temp->next;
             ++count;
         }
-        if(count==1)
-        {
-            return true;
-        }
-        if(count==2)
-        {
-            if(head->val==head->next->val)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         while(fast!=NULL&&fast->next!=NULL)
         {
             slow=slow->next;
