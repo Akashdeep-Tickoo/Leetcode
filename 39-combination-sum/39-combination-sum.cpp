@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void comb(vector<int>& candidates,vector<vector<int>>& ans,vector<int>ds,int index,int target)
+    void comb(vector<int>& candidates,vector<vector<int>>& ans,vector<int>& ds,int index,int target)
     {
         if(index==candidates.size())
         {
