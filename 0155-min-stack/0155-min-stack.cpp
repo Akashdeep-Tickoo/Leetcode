@@ -18,7 +18,7 @@ public:
         else{
             if(value<mini)
             {
-                s.push(2*value-mini);
+                s.push(2*value*1LL-mini);
                 mini=value;
             }
             else
