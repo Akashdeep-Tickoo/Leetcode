@@ -1,81 +1,58 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Node{
-public:
-    int data;
-    Node* next;
-    Node(int d)
-    {
-        data=d;
-        next=NULL;
-    }
-};
+long long mini;
 class MinStack {
-    Node* head;
-    Node* shead;
-    int size;
+    stack<long long> s;
 public:
     MinStack() {
-        head=NULL;
-        shead=NULL;
-        size=0;
-    }
-    void push(int val) {
-        Node* n=new Node(val);
-        if(shead==NULL)
-        {
-            Node* p=new Node(val);
-            p->next=shead;
-            shead=p;
-        }
-        else if(shead!=NULL&&shead->data>=val)
-        {
-            Node* p=new Node(val);
-            p->next=shead;
-            shead=p;
-        }
-		n->next=head;
-		head=n;
-		++size;
-    }
-    
-    void pop() {
-		{
-            if(head->data==shead->data)
-            {
-                shead=shead->next;
-            }
-			head=head->next;
-			size--;
-		}
-    }
-    
-    int top() {
-        if(head==NULL)
-		{
-			return -1;
-		}
-		else
-		{
-			return head->data;
-		}
         
     }
     
-    int getMin() {
-        if(shead!=NULL)
+    void push(int val) {
+        long long value=val;
+        if(s.size()==0)
         {
-             return shead->data;
+            mini=value;
+            s.push(value);
         }
-        else return NULL;
+        else{
+            if(value<mini)
+            {
+                s.push(2*value*1LL-mini);
+                mini=value;
+            }
+            else
+            {
+                s.push(value);
+            }
+        }
+    }
+    
+    void pop() {
+        if(s.empty())
+        {
+            return;
+        }
+        long long el=s.top();
+        s.pop();
+        if(el<mini)
+        {
+            mini=2*mini-el;
+        }
+    }
+    
+    int top() {
+        if(s.empty())return -1;
+        long long el=s.top();
+        if(el<mini)return mini;
+        return el;
+
+    }
+    
+    int getMin() {
+        return mini;
     }
 };
-
-
-
-
-
-
 
 /**
  * Your MinStack object will be instantiated and called as such:
