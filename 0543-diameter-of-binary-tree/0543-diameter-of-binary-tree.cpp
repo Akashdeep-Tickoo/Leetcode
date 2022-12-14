@@ -11,23 +11,30 @@
  */
 #include<bits/stdc++.h>
 using namespace std;
-int diameter(TreeNode* root)
+pair<int,int> diameter(TreeNode* root)
 {
     if(root==NULL)
     {
-        return 0;
+        pair<int,int>p;
+        p.first=0;
+        p.second=0;
+        return p;
     }
-    return 1+max(diameter(root->left),diameter(root->right));
+    pair<int,int>dleft=diameter(root->left);
+    pair<int,int>dright=diameter(root->right);
+    int lheight=dleft.first;
+    int rheight=dright.first;
+    int ld=dleft.second;
+    int rd=dright.second;
+    pair<int,int>ans;
+    ans.first=1+max(lheight,rheight);
+    ans.second=max(lheight+rheight,max(ld,rd));
+    return ans;
 }
 class Solution {
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root==NULL)
-        {
-            return 0;
-        }
-        int ldiameter=diameter(root->left);
-        int rdiameter=diameter(root->right);
-        return max(ldiameter+rdiameter,max(diameterOfBinaryTree(root->left),diameterOfBinaryTree(root->right)));
+        pair<int,int>p=diameter(root);
+        return p.second;
     }
 };
