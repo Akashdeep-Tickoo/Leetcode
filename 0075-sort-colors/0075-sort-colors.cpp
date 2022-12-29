@@ -1,36 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int zero=0,one=0,two=0;
-        for(int i=0;i<nums.size();++i)
+        int low,medium,high;
+        low=0;
+        medium=0;
+        high=nums.size()-1;
+        while(medium<=high)
         {
-            if(nums[i]==0)
+            if(nums[medium]==0)
             {
-                ++zero;
+                swap(nums[low],nums[medium]);
+                ++medium;
+                ++low;
             }
-            if(nums[i]==1)
+            else if(nums[medium]==1)
             {
-                ++one;
+                ++medium;
             }
-            if(nums[i]==2)
+            else if(nums[medium]==2)
             {
-                ++two;
+                swap(nums[medium],nums[high]);
+                high=high-1;
             }
-        }
-        int a=0;
-        for(int i=0;i<zero;++i)
-        {
-            nums[a]=0;
-            ++a;
-        }
-        for(int i=0;i<one;++i)
-        {
-            nums[a]=1;
-            ++a;
-        }for(int i=0;i<two;++i)
-        {
-            nums[a]=2;
-            ++a;
         }
     }
 };
