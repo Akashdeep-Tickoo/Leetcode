@@ -12,8 +12,8 @@ public:
             if(nums[medium]==0)
             {
                 swap(nums[low],nums[medium]);
-                ++medium;
                 ++low;
+                ++medium;
             }
             else if(nums[medium]==1)
             {
@@ -22,7 +22,7 @@ public:
             else if(nums[medium]==2)
             {
                 swap(nums[medium],nums[high]);
-                high=high-1;
+                high--;
             }
         }
     }
