@@ -13,29 +13,20 @@
 using namespace std;
 class Solution {
 public:
-    int finddia(TreeNode* root)
+    int diameter(TreeNode* root,int& ans)
     {
         if(root==NULL)
         {
             return 0;
         }
-        return 1+max(finddia(root->left),finddia(root->right));
-    }
-    void diameter(TreeNode* root,int& x)
-    {
-        if(root==NULL)
-        {
-            return;
-        }
-        int left=finddia(root->left);
-        int right=finddia(root->right);
-        x=max(max(left+right,x),max(left,right));
-        diameter(root->left,x);
-        diameter(root->right,x);
+        int left=diameter(root->left,ans);
+        int right=diameter(root->right,ans);
+        ans=max(max(left,right),max(ans,left+right));
+        return 1+max(left,right);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        int x=0;
-        diameter(root,x);
-        return x;
+        int ans=0;
+        int x=diameter(root,ans);
+        return ans;
     }
 };
