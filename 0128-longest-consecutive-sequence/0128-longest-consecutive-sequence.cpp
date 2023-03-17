@@ -3,37 +3,28 @@ using namespace std;
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        vector<int>ds;
-        set<int>s;
         int ans=0;
-        int n=nums.size();
-        for(int i=0;i<n;++i)
+        unordered_set<int>s;
+        for(auto x:nums)
         {
-            s.insert(nums[i]);
+            s.insert(x);
         }
-        auto it=s.begin();
-        while(it!=s.end())
+        for(auto x:s)
         {
-            ds.push_back(*it);
-            ++it;
-        }
-        
-        int p=ds.size();
-        if(p==0)return ans;
-        int count=1;
-        for(int i=0;i<p-1;++i)
-        {
-            if(ds[i+1]==ds[i]+1)
+            int parent=x-1;
+            int count=1;
+            if(s.find(parent)==s.end())
             {
-                ++count;
+                int next=x+1;
+                while(s.find(next)!=s.end())
+                {
+                    ++next;
+                    ++count;
+                }
+                                    ans=max(ans,count);
+
             }
-            else
-            {
-                count=1;
-            }
-            ans=max(ans,count);
         }
-        ans=max(ans,count);
         return ans;
     }
 };
