@@ -1,32 +1,28 @@
-#include<bits/stdc++.h>
-using namespace std;
 class Solution {
 public:
-    void findSum(vector<int>& candidates,vector<vector<int>>& ans,vector<int>& ds,int target,int i,int x,int sum)
+    void cs(vector<int>& candidates,vector<int>& ds,int target,int i,vector<vector<int>>& ans)
     {
-        if(i>x-1)
+        if(target<=0)
         {
-            return;
-        }
-        if(sum>=target)
-        {
-            if(sum==target)
+            if(target==0)
             {
                 ans.push_back(ds);
             }
             return;
         }
+        if(i==candidates.size())
+        {
+            return;
+        }
         ds.push_back(candidates[i]);
-        findSum(candidates,ans,ds,target,i,x,sum+candidates[i]);
+        cs(candidates,ds,target-candidates[i],i,ans);
         ds.pop_back();
-        findSum(candidates,ans,ds,target,i+1,x,sum);
-
+        cs(candidates,ds,target,i+1,ans);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>>ans;
-        int x=candidates.size();
         vector<int>ds;
-        findSum(candidates,ans,ds,target,0,x,0);
+        cs(candidates,ds,target,0,ans);
         return ans;
     }
 };
