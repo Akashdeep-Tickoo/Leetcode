@@ -1,20 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        map<int,int>ourmap;
+        int pp=0;
+        int at=INT_MIN;
         for(int i=0;i<nums.size();++i)
         {
-            ourmap[nums[i]]+=1;
+            if(nums[i]!=at)
+            {
+                at=nums[i];
+                nums[pp]=at;
+                ++pp;
+            }
         }
-        int p=0;
-        map<int,int>::iterator it=ourmap.begin();
-        while(it!=ourmap.end())
-        {
-            nums[p]=it->first;
-            ++p;
-            ++it;
-        }
-        return p;
-
+        return pp;
     }
 };
