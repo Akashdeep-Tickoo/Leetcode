@@ -9,24 +9,21 @@ public:
         while(j<s.length())
         {
             ourmap[s[j]]+=1;
-            if(ourmap[s[j]]>1)
+            if(j-i+1>ourmap.size())
             {
-                while(ourmap[s[j]]>1)
+                cout<<ourmap.size()<<endl;
+                ourmap[s[i]]-=1;
+                if(ourmap[s[i]]==0)
                 {
-                    ourmap[s[i]]-=1;
-                    ++i;
-                    if(ourmap[s[i]]==0)
-                    {
-                        ourmap.erase(s[i]);
-                    }
+                    ourmap.erase(s[i]);
                 }
+                i++;
             }
-            else
+            if(ourmap.size()==j-i+1)
             {
-                cout<<j<<" "<<i<<endl;
-                ans=max(ans,(j-i)+1);
+                ans=max(ans,j-i+1);
             }
-            ++j;
+            j++;
         }
         return ans;
     }
