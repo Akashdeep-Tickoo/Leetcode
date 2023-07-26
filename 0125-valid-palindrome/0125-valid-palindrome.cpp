@@ -2,53 +2,37 @@
 using namespace std;
 class Solution {
 public:
-    void pdhelper(string s,int i,bool &ans,int p)
-    {
-        // if(i==p/2)
-        // {
-        //     return;
-        // }
-        // int x=p;
-        // if(s[i]!=s[x-i-1])
-        // {
-        //     ans=false;
-        //     return;
-        // }
-        // pdhelper(s,i+1,ans,p);
-        
-        for(int i=0;i<(p/2);++i)
-        {
-            if(s[i]!=s[p-i-1])
-            {
-                ans=false;
-                return;
-            }
-        }
-    }
-    
-    
-    
     bool isPalindrome(string s) {
-        string akash="";
-        for(auto x:s)
+        int i=0,j=s.length()-1;
+        while(i<=j)
         {
-            if(iswalnum(x))
+            // cout<<s[i]<<" "<<s[j]<<" "<<i<<" "<<j<<endl;
+            if(((s[i]>=48&&s[i]<=57)||(s[i]>=65&&s[i]<=90)||(s[i]>=97&&s[i]<=122))&&((s[j]>=48&&s[j]<=57)||(s[j]>=65&&s[j]<=90)||(s[j]>=97&&s[j]<=122)))
             {
-                char t=x;
-                if(isalpha(x))
+                char c1=tolower(s[i]);
+                char c2=tolower(s[j]);
+                if(c1!=c2)
                 {
-                    t=tolower(x);
+                    // cout<<c1<<" "<<c2;
+                    return false;
                 }
-                akash+=t;
+                ++i;
+                --j;
+            }
+            else if(((s[j]>=48&&s[j]<=57)||(s[j]>=65&&s[j]<=90)||(s[j]>=97&&s[j]<=122)))
+            {
+                ++i;
+            }
+            else if(((s[i]>=48&&s[i]<=57)||(s[i]>=65&&s[i]<=90)||(s[i]>=97&&s[i]<=122))){
+                --j;
+            }
+            else
+            {
+                ++i;
+                --j;
             }
         }
-        if(akash.length()==0||akash.length()==1)
-        {
-            return true;
-        }
-        bool ans=true;
-        int p=akash.length();
-        pdhelper(akash,0,ans,p);
-        return ans;
+        return true;
+        
     }
 };
