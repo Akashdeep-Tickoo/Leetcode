@@ -3,38 +3,83 @@ using namespace std;
 class Solution {
 public:
     int myAtoi(string s) {
-        long ans=0;
-        int min=INT_MIN,max=INT_MAX;
-        if(s.length()==0)
-        {
-            return 0;
-        }
         int i=0;
-        while(i<s.length()&&s[i]==' ')
+        while(s[i]==' ')
         {
-            i++;
+            ++i;
         }
-        s=s.substr(i);
-        int sign=+1;
-        if(s[0]=='-')
+        int sign=1;
+        long long ans=0;
+        if(isdigit(s[i]))
         {
-            sign=-1;
+            s=s.substr(i);
+            i=0;
         }
-        i=(s[0]=='-'||s[0]=='+')?1:0;
+        else
+        {
+            if(s[i]=='-')
+            {
+                sign=-1;
+            }
+            else if(s[i]=='+')
+            {
+                sign=1;
+            }
+            else
+            {
+                return ans;
+            }
+            i=i+1;
+        }
         while(i<s.length())
         {
-            if(s[i]==' '||isdigit(s[i])==0)break;
+            if(isalpha(s[i]))
+            {
+                if(sign*ans<=INT_MIN)
+                {
+                    return INT_MIN;
+                }
+                else if(sign*ans>=INT_MAX)
+                {
+                    return INT_MAX;
+                }
+                return sign*ans;
+            }
+            else if(isdigit(s[i]))
+            {
+                 if(sign*ans<=INT_MIN)
+                {
+                    return INT_MIN;
+                }
+                else if(sign*ans>=INT_MAX)
+                {
+                    return INT_MAX;
+                }
             ans=(ans*10)+(s[i]-'0');
-            if(sign==-1&&(ans*sign<min))
-            {
-                return min;
             }
-            if(sign==1&&(ans*sign>max))
+            else
             {
-                return max;
+                 if(sign*ans<=INT_MIN)
+                {
+                    return INT_MIN;
+                }
+                else if(sign*ans>=INT_MAX)
+                {
+                    return INT_MAX;
+                }
+                return sign*ans; 
             }
-            i++;
+            i=i+1;
         }
-        return sign*ans;
+        
+                if(sign*ans<=INT_MIN)
+                {
+                    return INT_MIN;
+                }
+                else if(sign*ans>=INT_MAX)
+                {
+                    return INT_MAX;
+                }
+                return sign*ans;
     }
 };
