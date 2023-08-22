@@ -4,44 +4,38 @@ using namespace std;
 
 
 // } Driver Code Ends
-
-
-
-
 class Solution
 {
     public:
-    
-    
-     int knapHelper(int W,int wt[],int val[],int n,int arr[1002][1002])
+    int khelper(int W, int wt[], int val[], int n,int arr[1002][1002])
     {
-        if(n==0||W==0)
+        if(n==0)
         {
             return 0;
         }
-        if(arr[n-1][W-1]!=-1)
+        if(arr[n][W]!=-1)
         {
-            return arr[n-1][W-1];
+            return arr[n][W];
         }
         if(wt[n-1]<=W)
         {
-            return arr[n-1][W-1]=max(val[n-1]+knapHelper(W-wt[n-1],wt,val,n-1,arr),knapHelper(W,wt,val,n-1,arr));
+            int a=val[n-1]+khelper(W-wt[n-1],wt,val,n-1,arr);
+            int b=khelper(W,wt,val,n-1,arr);
+            return arr[n][W]=max(a,b);
         }
-        else if(wt[n-1]>W)
+        if(wt[n-1]>W)
         {
-            return arr[n-1][W-1]=knapHelper(W,wt,val,n-1,arr);
+            return arr[n][W]=khelper(W,wt,val,n-1,arr);
         }
     }
     //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-        int arr[1002][1002];
-        memset(arr, -1, sizeof(arr));
-        
-       int ans=knapHelper(W,wt,val,n,arr);
-       return ans;
+       // Your code here
+       int arr[1002][1002];
+       memset(arr,-1,sizeof(arr));
+       return khelper(W,wt,val,n,arr);
     }
-   
 };
 
 //{ Driver Code Starts.
