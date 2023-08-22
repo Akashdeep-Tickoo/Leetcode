@@ -7,34 +7,41 @@ using namespace std;
 class Solution
 {
     public:
-    int khelper(int W, int wt[], int val[], int n,int arr[1002][1002])
-    {
-        if(n==0)
-        {
-            return 0;
-        }
-        if(arr[n][W]!=-1)
-        {
-            return arr[n][W];
-        }
-        if(wt[n-1]<=W)
-        {
-            int a=val[n-1]+khelper(W-wt[n-1],wt,val,n-1,arr);
-            int b=khelper(W,wt,val,n-1,arr);
-            return arr[n][W]=max(a,b);
-        }
-        if(wt[n-1]>W)
-        {
-            return arr[n][W]=khelper(W,wt,val,n-1,arr);
-        }
-    }
     //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
     { 
        // Your code here
        int arr[1002][1002];
        memset(arr,-1,sizeof(arr));
-       return khelper(W,wt,val,n,arr);
+       for(int i=0;i<n+1;++i)
+       {
+           for(int j=0;j<W+1;++j)
+           {
+               if(i==0||j==0)
+               {
+                   arr[i][j]=0;
+               }
+           }
+       }
+       for(int i=1;i<n+1;++i)
+       {
+           for(int j=1;j<W+1;++j)
+           {
+               if(wt[i-1]<=j)
+               {
+                   int a=val[i-1]+arr[i-1][j-wt[i-1]];
+                   int b=arr[i-1][j];
+                   arr[i][j]=max(a,b);
+               }
+               else if(wt[i-1]>j)
+               {
+                   arr[i][j]=arr[i-1][j];
+               }
+           }
+       }
+       return arr[n][W];
+       
+       
     }
 };
 
